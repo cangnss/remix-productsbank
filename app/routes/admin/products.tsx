@@ -1,6 +1,6 @@
-import { Outlet, LoaderFunction, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, Link } from "@remix-run/react";
 import type { Product } from "@prisma/client"
-import { json } from "@remix-run/node"
+import { json, LoaderFunction } from "@remix-run/node"
 import { db } from "~/utils/db.server"
 
 
@@ -28,8 +28,15 @@ export default function ProductsRoute(){
                 <div>
                     {data.productItems.map((product)=>{
                         return(
-                            <div key={product.id}>
-                                <p>{product.productName} {product.productVendor} {product.productDescription}</p>
+                            <div key={product.id} className="flex flex-row">
+                                <div className="p-3">
+                                    <p>{product.productName} {product.productVendor}</p>
+                                </div>
+                                <div>
+                                    <Link to={`${product.id}`}>
+                                        <button className="bg-slate-600 w-24 p-2 text-white font-semibold rounded-lg">Detail</button>
+                                    </Link>
+                                </div>
                             </div>
                         )
                     })}
