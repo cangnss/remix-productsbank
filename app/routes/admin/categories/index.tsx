@@ -1,6 +1,6 @@
 import { Category } from "@prisma/client";
 import { json, LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Link } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 
 type LoaderData = {
@@ -28,7 +28,9 @@ export default function CategoryIndex() {
               className="w-44 p-5 mr-5 font-semibold text-white text-center rounded-lg bg-cyan-600"
               key={category.id}
             >
-              {category.categoryName}
+              <Link to={`/admin/categories/${category.id}`}>
+                {category.categoryName}
+              </Link>
             </div>
           );
         })}

@@ -1,4 +1,4 @@
-import { Outlet, LoaderFunction, useLoaderData } from "@remix-run/react";
+import { Outlet } from "@remix-run/react";
 import type { Category } from "@prisma/client";
 import { json } from "@remix-run/node";
 

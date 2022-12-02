@@ -15,10 +15,6 @@ export const loader: LoaderFunction = async () => {
   return json(data);
 };
 
-export const action: ActionFunction = async () => {
-  return json(null)
-}
-
 export default function ProductIndex() {
   const data = useLoaderData<LoaderData>();
 

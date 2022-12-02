@@ -68,13 +68,16 @@ export const action: ActionFunction = async ({ request }) => {
     return badRequest({ fieldErrors, fields });
   }
 
-  const product = await db.product.create({ data: fields });
-  return json({ success: true, product });    
+  try {
+    const product = await db.product.create({ data: fields });
+    return redirect(`admin/products/${product.id}`);
+  } catch (error) {
+    return json({ error }, { status: 500 });
+  }
 };
 
 export default function AddProduct() {
   const actionData = useActionData<ActionData>();
-  console.log(actionData)
 
   return (
     <div className="flex justify-center mx-auto flex-col bg-white drop-shadow-lg p-10 w-80">
@@ -122,7 +125,9 @@ export default function AddProduct() {
                 Boolean(actionData?.fieldErrors?.productVendor) || undefined
               }
               aria-errormessage={
-                actionData?.fieldErrors?.productVendor ? "content-error" : undefined
+                actionData?.fieldErrors?.productVendor
+                  ? "content-error"
+                  : undefined
               }
               className="w-50 p-3 bg-slate-200 rounded-lg"
             />
@@ -141,10 +146,13 @@ export default function AddProduct() {
               name="description"
               defaultValue={actionData?.fields?.productDescription}
               aria-invalid={
-                Boolean(actionData?.fieldErrors?.productDescription) || undefined
+                Boolean(actionData?.fieldErrors?.productDescription) ||
+                undefined
               }
               aria-errormessage={
-                actionData?.fieldErrors?.productDescription ? "content-error" : undefined
+                actionData?.fieldErrors?.productDescription
+                  ? "content-error"
+                  : undefined
               }
               className="w-52 p-3 bg-slate-200 rounded-lg"
             />

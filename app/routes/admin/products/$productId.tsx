@@ -6,7 +6,6 @@ import { useLoaderData } from "@remix-run/react"
 type LoaderData = { product: Product }
 
 export const loader: LoaderFunction = async ({ params }) => {
-    console.log(params)
     const product = await db.product.findUnique({
         where: { id: params.productId }
     }) 
